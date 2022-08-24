@@ -1,20 +1,24 @@
 package com.example.beginner.service;
 
 import com.example.beginner.dto.PostRequestDto;
+import com.example.beginner.dto.PostUpdateDto;
 import com.example.beginner.dto.ResponseDto;
 import com.example.beginner.dto.passwordDto;
 import com.example.beginner.entity.Post;
+import com.example.beginner.repository.CommentRepository;
 import com.example.beginner.repository.PostRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 @RequiredArgsConstructor
 @Service
 public class PostService {
 
   private final PostRepository postRepository;
+  private final CommentRepository commentRepository;
 
   @Transactional
   public ResponseDto<?> createPost(PostRequestDto requestDto) {
@@ -39,11 +43,18 @@ public class PostService {
 
   @Transactional(readOnly = true)
   public ResponseDto<?> getAllPost() {
+//    ModelAndView mv = new ModelAndView();
+//    post = postRepository.findAllByOrderByModifiedAtDesc();
+    System.out.println(postRepository.findAll().size()); ;
+    ModelAndView mv = new ModelAndView();
+    for (int i = 0; i < postRepository.findAll().size(); i++) {
+
+    }
     return ResponseDto.success(postRepository.findAllByOrderByModifiedAtDesc());
   }
 
   @Transactional
-  public ResponseDto<Post> updatePost(Long id, PostRequestDto requestDto) {
+  public ResponseDto<Post> updatePost(Long id, PostUpdateDto updateDto) {
     Optional<Post> optionalPost = postRepository.findById(id);
 
     if (optionalPost.isEmpty()) {
@@ -51,7 +62,7 @@ public class PostService {
     }
 
     Post post = optionalPost.get();
-    post.update(requestDto);
+    post.update(updateDto);
 
     return ResponseDto.success(post);
   }
@@ -65,10 +76,10 @@ public class PostService {
     }
 
     Post post = optionalPost.get();
-
+//    if (optionalPost.get().getPassword())
     postRepository.delete(post);
 
-    return ResponseDto.success(true);
+    return ResponseDto.success("delete Success");
   }
 
   @Transactional(readOnly = true)

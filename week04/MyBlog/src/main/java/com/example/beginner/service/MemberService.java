@@ -1,16 +1,11 @@
 package com.example.beginner.service;
 
 import com.example.beginner.dto.MemberResponseDto;
-import com.example.beginner.dto.ResponseDto;
-import com.example.beginner.entity.Member;
-import com.example.beginner.entity.Post;
 import com.example.beginner.repository.MemberRepository;
 import com.example.beginner.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

@@ -67,7 +67,7 @@ public class CommentService {
 
         commentRepository.delete(comment);
 
-        return ResponseDto.success(true);
+        return ResponseDto.success("success");
     }
 
 }

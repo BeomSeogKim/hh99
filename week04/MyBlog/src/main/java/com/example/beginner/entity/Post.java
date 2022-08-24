@@ -1,6 +1,7 @@
 package com.example.beginner.entity;
 
 import com.example.beginner.dto.PostRequestDto;
+import com.example.beginner.dto.PostUpdateDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,11 +42,9 @@ public class Post extends Timestamped {
     this.password = postRequestDto.getPassword();
   }
 
-  public void update(PostRequestDto postRequestDto) {
-    this.title = postRequestDto.getTitle();
-    this.content = postRequestDto.getContent();
-    this.author = postRequestDto.getAuthor();
-    this.password = postRequestDto.getPassword();
+  public void update(PostUpdateDto postUpdateDto) {
+    this.title = postUpdateDto.getTitle();
+    this.content = postUpdateDto.getContent();
   }
 
 }

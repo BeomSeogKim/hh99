@@ -1,6 +1,7 @@
 package com.example.beginner.controller;
 
 import com.example.beginner.dto.PostRequestDto;
+import com.example.beginner.dto.PostUpdateDto;
 import com.example.beginner.dto.ResponseDto;
 import com.example.beginner.dto.passwordDto;
 import com.example.beginner.service.PostService;
@@ -35,8 +36,8 @@ public class PostController {
   }
 
   @PutMapping("/api/post/{id}")
-  public ResponseDto<?> updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
-    return postService.updatePost(id, postRequestDto);
+  public ResponseDto<?> updatePost(@PathVariable Long id, @RequestBody PostUpdateDto postUpdateDto) {
+    return postService.updatePost(id, postUpdateDto);
   }
 
   @DeleteMapping("/api/post/{id}")
