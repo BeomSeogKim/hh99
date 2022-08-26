@@ -7,6 +7,7 @@ import com.example.beginner.dto.passwordDto;
 import com.example.beginner.entity.Post;
 import com.example.beginner.repository.CommentRepository;
 import com.example.beginner.repository.PostRepository;
+
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -98,6 +99,5 @@ public class PostService {
 
     return ResponseDto.success(true);
   }
-
 
 }

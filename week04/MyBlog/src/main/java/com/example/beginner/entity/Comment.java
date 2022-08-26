@@ -26,7 +26,12 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private Long postId;
 
+//    @ManyToOne
+//    @JoinColumn(name="POST_ID", nullable = false)
+//    private Post postId;
+
     public Comment(CommentRequestDto commentRequestDto) {
+
         this.commentId = commentRequestDto.getCommentId();
         this.content = commentRequestDto.getContent();
         this.author = commentRequestDto.getAuthor();

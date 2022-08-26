@@ -3,9 +3,14 @@ package com.example.beginner.controller;
 import com.example.beginner.dto.CommentRequestDto;
 import com.example.beginner.dto.PostRequestDto;
 import com.example.beginner.dto.ResponseDto;
+import com.example.beginner.entity.Comment;
+import com.example.beginner.entity.Post;
 import com.example.beginner.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,6 +20,8 @@ public class CommentController {
     //댓글 생성
     @PostMapping("/api/auth/comment")
     public ResponseDto<?> createPost(@RequestBody CommentRequestDto requestDto) {
+
+
         return commentService.createComment(requestDto);
     }
     //댓글 조회

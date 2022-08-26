@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -29,10 +31,29 @@ public class AuthService {
 
     @Transactional
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+        // 닉네임 요건 설정 (4~12자) 알파벳 대소문자 및 숫자
+        String id = memberRequestDto.getNickname();
+        Pattern idPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{4,12}$");
+        Matcher idMatcher = idPattern.matcher((id));
+
+        // 비밀번호 요건 설정 (4~32자) 알파벳 소문자 및 숫자
+        String pass = memberRequestDto.getPassword();
+        Pattern passPattern1 = Pattern.compile("^(?=.*[a-z])(?=.*\\d).{4,32}$");
+        Matcher passMatcher = passPattern1.matcher(pass);
+
+
+        // 회원가입 유효성 검사
+            // Id 유효성 검사
         if (memberRepository.existsByNickname(memberRequestDto.getNickname())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
-        } else if (!memberRequestDto.getPassword().equals(memberRequestDto.getPasswordCheck())) {
+        } else if (!idMatcher.find()) {
+            throw new RuntimeException("아이디 요건을 확인 바랍니다.");
+        }
+            //Password 유효성 검사
+        else if (!memberRequestDto.getPassword().equals(memberRequestDto.getPasswordCheck())) {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+        } else if (!passMatcher.find()) {
+            throw new RuntimeException("비밀번호 요건을 확인해주세요");
         }
 
         Member member = memberRequestDto.toMember(passwordEncoder);
